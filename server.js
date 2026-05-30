@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.get('/api/meta', async (req, res) => {
   try {
-    const { path } = req.query;
+    const path = decodeURIComponent(req.query.path);
     const url = `https://graph.facebook.com/v20.0/${path}`;
     const response = await fetch(url);
     const data = await response.json();
@@ -20,7 +20,7 @@ app.get('/api/meta', async (req, res) => {
 
 app.post('/api/meta', async (req, res) => {
   try {
-    const { path } = req.query;
+    const path = decodeURIComponent(req.query.path);
     const url = `https://graph.facebook.com/v20.0/${path}`;
     const response = await fetch(url, {
       method: 'POST',
@@ -34,5 +34,5 @@ app.post('/api/meta', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`Proxy running on port ${PORT}`));
